@@ -15,5 +15,5 @@
 - Install composer.  `composer install`
 - Run migrations. `sf doctrine:migrations:migrate`
   - Type *yes* for continue 😈
-6. Open your favourite browser with http://localhost
-7. Tada
+4. Open your favourite browser with http://localhost
+5. Tada
