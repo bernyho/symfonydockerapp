@@ -2,6 +2,7 @@ version: '3'
 
 services:
     db:
+        container_name: c_mysql
         image: mysql:8.0.20
         command: --default-authentication-plugin=mysql_native_password
         volumes:
@@ -16,6 +17,7 @@ services:
         networks:
             - symfony
     php:
+        container_name: c_php
         build:
             context: .
             dockerfile: docker/php/Dockerfile
@@ -28,6 +30,7 @@ services:
         hostname: app_php
         restart: always
     nginx:
+        container_name: c_nginx
         build:
             context: .
             dockerfile: docker/nginx/Dockerfile
