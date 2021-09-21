@@ -124,10 +124,10 @@ class User implements UserInterface, \JsonSerializable
 		return array_unique($roles);
 	}
 
-    public function setRoles(array $roles): self
-    {
-        $this->roles = $roles;
+	public function setRoles(array $roles): self
+	{
+		$this->roles = $roles;
 
-        return $this;
-    }
+		return $this;
+	}
 }

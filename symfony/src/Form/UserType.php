@@ -12,8 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class UserType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+	public function buildForm(FormBuilderInterface $builder, array $options)
+	{
 		$builder
 			->add('name')
 			->add('password', PasswordType::class)
@@ -27,12 +27,12 @@ class UserType extends AbstractType
 				'expanded'=>true,
 			])
 			->add('save', SubmitType::class);
-    }
+	}
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => User::class,
-        ]);
-    }
+	public function configureOptions(OptionsResolver $resolver)
+	{
+		$resolver->setDefaults([
+			'data_class' => User::class,
+		]);
+	}
 }
