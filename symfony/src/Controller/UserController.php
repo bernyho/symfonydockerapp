@@ -24,8 +24,8 @@ class UserController extends AbstractController
 	 * @Route("/", name="home")
 	 * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
 	 */
-    public function index(Request $request, UserPasswordEncoderInterface $userPasswordEncoder): Response
-    {
+	public function index(Request $request, UserPasswordEncoderInterface $userPasswordEncoder): Response
+	{
 		$user = new User();
 		$form = $this->createForm(UserType::class, $user);
 
@@ -53,10 +53,10 @@ class UserController extends AbstractController
 
 			return $this->redirectToRoute('home');
 		}
-        return $this->render('user/index.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
+		return $this->render('user/index.html.twig', [
+			'form' => $form->createView(),
+			]);
+	}
 
 	/**
 	 * @Route("/list", name="list")
