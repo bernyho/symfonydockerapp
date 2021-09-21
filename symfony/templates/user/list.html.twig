@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}list{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                {% if list %}
+                <ul>
+                    {% for user in list %}
+                        <li>{{ user['name'] }} - {{ user['email'] }} ({{ user['roles'] }})</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                    <p>No users.</p>
+                {% endif%}
+            </div>
+        </div>
+    </div>
+{% endblock %}
