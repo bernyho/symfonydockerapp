@@ -21,10 +21,7 @@ class ApiController extends AbstractFOSRestController
 	private $userRepository;
 	private $userPasswordEncoder;
 
-	public function __construct(
-		UserRepository $userRepository,
-		UserPasswordEncoderInterface $userPasswordEncoder
-	) {
+	public function __construct(UserRepository $userRepository, UserPasswordEncoderInterface $userPasswordEncoder) {
 		$this->userRepository = $userRepository;
 		$this->userPasswordEncoder = $userPasswordEncoder;
 	}
@@ -36,8 +33,8 @@ class ApiController extends AbstractFOSRestController
 	public function getUsers(): JsonResponse
 	{
 		$data = $this->userRepository->findAll();
-		$results = [];
 
+		$results = [];
 		foreach ($data as $d) {
 			$results[] = $d->jsonSerialize();
 		}
@@ -56,48 +53,41 @@ class ApiController extends AbstractFOSRestController
 	{
 		try {
 			$request = $this->transformRequest($request);
-			if (!$request ||
-				!$request->get('name') ||
-				!$request->get('email') ||
-				!$request->get('password') ||
-				!$request->get('roles')
-			) {
-				throw new Exception();
-			}
+			$this->checkRequestData($request);
 		} catch (Exception $e) {
-			$data = [
+			return new JsonResponse([
 				'status' => 422,
-				'errors' => "No valid data.",
-			];
-			return new JsonResponse($data, 422);
+				'errors' => $e->getMessage(),
+			], 422);
 		}
 
 		try {
 			$user = new User();
 			$user->setName($request->get('name'));
-			$user->setPassword(
-				$this->userPasswordEncoder->encodePassword($user, $request->get('password'))
-			);
+			$user->setPassword($this->userPasswordEncoder->encodePassword($user, $request->get('password')));
 			$user->setEmail($request->get('email'));
 			$user->setRoles($request->get('roles'));
 
 			$entityManager->persist($user);
 			$entityManager->flush();
 
-			$data = [
-				'status' => 200,
-				'success' => "New user added successfully.",
-			];
-
-			return new JsonResponse($data);
+			return new JsonResponse(['status' => 200, 'success' => "Adding a user has been done successfully"]);
 		} catch (UniqueConstraintViolationException $exception) {
-			$data = [
-				'status' => 422,
-				'errors' => "Duplicate email.",
-			];
-			return new JsonResponse($data, 422);
+			return new JsonResponse(['status' => 422, 'errors' => "Duplicate email."], 422);
 		}
 
+	}
+
+	private function checkRequestData($request): void
+	{
+		if (!$request ||
+			!$request->get('name') ||
+			!$request->get('email') ||
+			!$request->get('password') ||
+			!$request->get('roles')
+		) {
+			throw new Exception('Invalid data.');
+		}
 	}
 
 	protected function transformRequest(Request $request)

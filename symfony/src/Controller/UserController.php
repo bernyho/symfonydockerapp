@@ -15,6 +15,9 @@ class UserController extends AbstractController
 {
 	private $httpClient;
 
+	public const USER_POST_URL = 'http://app_nginx/api/user';
+	public const USER_GET_URL = 'http://app_nginx/api/users';
+
 	public function __construct(HttpClientInterface $httpClient)
 	{
 		$this->httpClient = $httpClient;
@@ -34,10 +37,7 @@ class UserController extends AbstractController
 		if ($form->isSubmitted() && $form->isValid()) {
 
 			$user = $form->getData();
-			$response = $this->httpClient->request(
-				'POST',
-				'http://app_nginx/api/user',
-				[
+			$response = $this->httpClient->request('POST', self::USER_POST_URL, [
 					'body' => [
 						'name' => $user->getName(),
 						'email' => $user->getEmail(),
@@ -53,9 +53,7 @@ class UserController extends AbstractController
 
 			return $this->redirectToRoute('home');
 		}
-		return $this->render('user/index.html.twig', [
-			'form' => $form->createView(),
-			]);
+		return $this->render('user/index.html.twig', ['form' => $form->createView()]);
 	}
 
 	/**
@@ -63,10 +61,7 @@ class UserController extends AbstractController
 	 */
 	public function list(): Response
 	{
-		$response = $this->httpClient->request(
-			'GET',
-			'http://app_nginx/api/users'
-		);
+		$response = $this->httpClient->request('GET', self::USER_GET_URL);
 
 		return $this->render('user/list.html.twig', [
 			'list' => json_decode($response->getContent(), true)
