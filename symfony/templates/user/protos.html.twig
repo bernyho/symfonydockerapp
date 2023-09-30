@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}proto{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h2>Itemproto generator</h2>
+                {{ form_start(form) }}
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(form) }}
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.from) }}
+                    </div>
+                    <div class="col" id="some-custom-id">
+                        {{ form_row(form.to) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.size) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.name) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.type) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.subtype) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.antiflag) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.flag) }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.level) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.levelplus) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.gold) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.shopBuy) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.minmagicattack) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.maxmagicattack) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.minattack) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.maxattack) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.bonusPercent) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.refineset) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.skillAndAverage) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.applytype0) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.applyvalue0) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.plusvalue0) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.applytype1) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.applyvalue1) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.plusvalue1) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.applytype2) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.applyvalue2) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.plusvalue2) }}
+                    </div>
+                </div>
+                {{ form_end(form) }}
+
+                <div class="col-12" style="width: 100%;overflow: scroll;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                {% for head in headInArray %}
+                                    <th scope="col">{{ head }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in contentInLines %}
+                            <tr>
+                                {% for data in row %}
+                                    <th>{{ data }}</th>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <textarea rows="4" cols="50">{{ content }}</textarea>
+            </div>
+        </div>
+    </div>
+{% endblock %}
